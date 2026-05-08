@@ -14,6 +14,10 @@ git clone https://github.com/nieatmaja/Tebac-CLI
 
 cd Tebac-CLI
 
+#install the required library
+
+pip install -r requirements.txt
+
 #run it
 
 python main.py

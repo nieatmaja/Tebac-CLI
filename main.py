@@ -31,6 +31,7 @@ from markdown_text_clean import clean_text
 
 console = Console()
 data_file = os.path.abspath("core/data_file.json")
+get_data_global = load_data()
 
 ## Call openrouter api ##
 def call_api(user_input, conversation_history):
@@ -65,19 +66,19 @@ def call_api(user_input, conversation_history):
     return response.json()['choices'][0]['message']['content']
 
 def chat():
-    get_data = load_data()
-    conversation_history = load_memory()
     basic_commands.cls()
     look.render_banner()
     
-    if get_data['api_key'] == "<YOUR_API>" or "sk-or-v1" not in get_data['api_key']:
+    if get_data_global['api_key'] == "<YOUR_API>" or "sk-or-v1" not in get_data_global['api_key']:
         console.print(f"[bold]No api key specified, you may need to set your api key![/bold], run /set-api API_KEY")
 
-    if get_data['model'] == "<YOUR_PREFFERED_MODEL>":
+    if get_data_global['model'] == "<YOUR_PREFFERED_MODEL>":
         console.print(f"[bold]No ai model specified, you may need to set ai model![/bold], run /set-model MODEL")
 
     while True:
         try:
+            conversation_history = load_memory()
+            get_data = load_data()
             user_input = console.input(f"[bold blue]AI[/bold blue][bold red]@[/bold red][bold]{get_data['model']}[/bold][bold]>[/bold]\x20") # \x20 for SPACE
             
             if not user_input.strip():

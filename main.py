@@ -24,53 +24,23 @@ import shlex
 import sys
 import platform
 import time
-from helpers import look, errors, basic_commands, util
-from helpers import load_data, load_memory, save_memory, get_prompt
+from api import call_api
+from storage import load_data, load_memory, save_memory
+from commands import util, basic_commands
+from ui import look
+from errors import errors
 from rich.console import Console
 from markdown_text_clean import clean_text
 
 console = Console()
-data_file = os.path.abspath("core/data_file.json")
 get_data_global = load_data()
-
-## Call openrouter api ##
-def call_api(user_input, conversation_history):
-    get_data = load_data()
-    
-    headers={
-        "Authorization": f"Bearer {get_data['api_key']}",
-        "HTTP-Referer": get_data['site_url'],
-        "X-OpenRouter-Title": get_data['site_name'],
-    }
-    
-    messages = [{"role": "system", "content": get_prompt()}]
-    messages.extend(conversation_history)
-    messages.append({"role": "user", "content": user_input})
-    
-    data = {
-        "model": get_data['model'],
-        "messages": messages
-    }
-    
-    try:
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers=headers,
-            json=data,
-            timeout=25
-        )
-    except requests.exceptions.Timeout:
-        console.print("[red]Request timeout![/red]")
-        
-    response.raise_for_status()
-    return response.json()['choices'][0]['message']['content']
 
 def chat():
     basic_commands.cls()
     look.render_banner()
     
     if get_data_global['api_key'] == "<YOUR_API>" or "sk-or-v1" not in get_data_global['api_key']:
-        console.print(f"[bold]No api key specified, you may need to set your api key![/bold], run /set-api API_KEY")
+        console.print(f"[bold]No valid openrouter api key specified, you may need to set your api key![/bold], run /set-api API_KEY")
 
     if get_data_global['model'] == "<YOUR_PREFFERED_MODEL>":
         console.print(f"[bold]No ai model specified, you may need to set ai model![/bold], run /set-model MODEL")

@@ -15,34 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import requests
-import json
-import subprocess
 import sys
-import os
-import shlex
-import sys
-import platform
-import time
-from api import call_api
-from storage import load_data, load_memory, save_memory
-from commands import util, basic_commands
-from ui import look
-from errors import errors
+from core.api import call_api
+from core.storage import load_data, load_memory, save_memory
+from core.commands import basic_commands, handler
+from core.ui import look, text
+from core.errors import errors
 from rich.console import Console
-from markdown_text_clean import clean_text
+from rich.markdown import Markdown
 
 console = Console()
-get_data_global = load_data()
 
 def chat():
+    config = load_data()
     basic_commands.cls()
     look.render_banner()
     
-    if get_data_global['api_key'] == "<YOUR_API>" or "sk-or-v1" not in get_data_global['api_key']:
+    if config['api_key'] == "<YOUR_API>" or "sk-or-v1" not in config['api_key']:
         console.print(f"[bold]No valid openrouter api key specified, you may need to set your api key![/bold], run /set-api API_KEY")
 
-    if get_data_global['model'] == "<YOUR_PREFFERED_MODEL>":
+    if config['model'] == "<YOUR_PREFFERED_MODEL>":
         console.print(f"[bold]No ai model specified, you may need to set ai model![/bold], run /set-model MODEL")
 
     while True:
@@ -54,7 +46,7 @@ def chat():
             if not user_input.strip():
                 continue
             
-            if util.check_if_its_command(user_input):
+            if handler.handle_command(user_input):
                 continue
 
             try:
@@ -65,20 +57,20 @@ def chat():
                 continue
             
             if response:
-                cleaned_response = clean_text(response)
                 console.print(f"[[green]response[/green]]:\n")
-                look.typing_print(cleaned_response)
+                text.typing_print(response)
                 print("")
                 
                 conversation_history.append({"role": "user", "content": user_input})
                 conversation_history.append({"role": "assistant", "content": response})
                 save_memory(conversation_history)
-            
-        except Exception as e:
-            errors.print_error(e)
+                
         except KeyboardInterrupt:
             errors.print_keyboard_interrupt()
-            sys.exit(0)
+            sys.exit(0)    
+        except Exception as e:
+            errors.print_error(e)
+        
             
 if __name__ == '__main__':
     chat()

@@ -1,0 +1,5 @@
+{
+    "config_file_location": "data/data_file.json",
+    "prompt_file_location": "data/prompt.txt",
+    "memory_file_location": "data/memory.json"
+}

@@ -1,9 +1,11 @@
 import json
 import requests
 import os
+from .messages import errors, message
 from .storage import load_data
+from .get_file_loc import get_file_loc
 
-PROMPT_FILE = os.path.abspath("prompt.txt")
+PROMPT_FILE = get_file_loc("prompt")
 
 ## Get AI prompt from prompt.txt ##
 def get_prompt():
@@ -22,37 +24,40 @@ def get_prompt():
                 return "You are tebac, a very helpful and very kind ai that help people anytime."
             
     except Exception as e:
-        print(f"{colors.red}Failed to read system prompt: {e}{colors.reset}")
+        errors.print_error(e, __file__)
         return "You are tebac, a very helpful and very kind ai that help people anytime."
 
 ## Call openrouter api ##
 def call_api(user_input, conversation_history):
-    get_data = load_data()
-    
-    headers={
-        "Authorization": f"Bearer {get_data['api_key']}",
-        "HTTP-Referer": get_data['site_url'],
-        "X-OpenRouter-Title": get_data['site_name'],
-    }
-    
-    messages = [{"role": "system", "content": get_prompt()}]
-    messages.extend(conversation_history)
-    messages.append({"role": "user", "content": user_input})
-    
-    data = {
-        "model": get_data['model'],
-        "messages": messages
-    }
-    
     try:
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers=headers,
-            json=data,
-            timeout=25
-        )
-    except requests.exceptions.Timeout:
-        console.print("[red]Request timeout![/red]")
+        get_data = load_data()
+    
+        headers={
+            "Authorization": f"Bearer {get_data['api_key']}",
+            "HTTP-Referer": get_data['site_url'],
+            "X-OpenRouter-Title": get_data['site_name'],
+        }
+    
+        messages = [{"role": "system", "content": get_prompt()}]
+        messages.extend(conversation_history)
+        messages.append({"role": "user", "content": user_input})
+    
+        data = {
+            "model": get_data['model'],
+            "messages": messages
+        }
+    
+        try:
+            response = requests.post(
+                url="https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json=data,
+                timeout=25
+            )
+        except requests.exceptions.Timeout:
+            message.warn("Request timeout!")
         
-    response.raise_for_status()
-    return response.json()['choices'][0]['message']['content']
+        response.raise_for_status()
+        return response.json()['choices'][0]['message']['content']
+    except Exception as e:
+        errors.print_error(e, __file__)

@@ -20,7 +20,7 @@ from core.api import call_api
 from core.storage import load_data, load_memory, save_memory
 from core.commands import basic_commands, handler
 from core.ui import look, text
-from core.errors import errors
+from core.messages import errors, message
 from rich.console import Console
 from rich.markdown import Markdown
 
@@ -31,17 +31,20 @@ def chat():
     basic_commands.cls()
     look.render_banner()
     
-    if config['api_key'] == "<YOUR_API>" or "sk-or-v1" not in config['api_key']:
+    api_key = config['api_key']
+    
+    if api_key == "<YOUR_API>" or not api_key.startswith("sk-or-v1"):
         console.print(f"[bold]No valid openrouter api key specified, you may need to set your api key![/bold], run /set-api API_KEY")
 
-    if config['model'] == "<YOUR_PREFFERED_MODEL>":
+    if api_key == "<YOUR_PREFERRED_MODEL>":
         console.print(f"[bold]No ai model specified, you may need to set ai model![/bold], run /set-model MODEL")
 
     while True:
         try:
             conversation_history = load_memory()
             get_data = load_data()
-            user_input = console.input(f"[bold blue]AI[/bold blue][bold red]@[/bold red][bold]{get_data['model']}[/bold][bold]>[/bold]\x20") # \x20 for SPACE
+            ai_model = get_data['model']
+            user_input = text.get_prompt(ai_model)
             
             if not user_input.strip():
                 continue
@@ -50,10 +53,10 @@ def chat():
                 continue
 
             try:
-                with console.status("[blue]Thinking...[/blue]", spinner="dots"):
+                with console.status("[bold]Thinking...[/bold]", spinner="dots"):
                     response = call_api(user_input, conversation_history)
             except KeyboardInterrupt:
-                console.print("[red]Aborted[/red]")
+                message.warn("Aborted!")
                 continue
             
             if response:
@@ -67,9 +70,9 @@ def chat():
                 
         except KeyboardInterrupt:
             errors.print_keyboard_interrupt()
-            sys.exit(0)    
+            sys.exit(0)
         except Exception as e:
-            errors.print_error(e)
+            errors.print_error(e, __file__)
         
             
 if __name__ == '__main__':

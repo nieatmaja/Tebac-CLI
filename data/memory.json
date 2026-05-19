@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "\nHey there! 👋 \n\nI'm tebac AI - your backend engineering partner with a decade and a half of keeping systems alive in production. Whether you're wrestling with cache stampedes, untangling race conditions, or trying to figure out why your microservice is melting under load, I've probably seen it happen before.\n\nWhat can I help you with today? Scaling headaches? Database design? Observability setup? Or are you just saying hi to a fellow backend veteran? 😄\n"
+  }
+]

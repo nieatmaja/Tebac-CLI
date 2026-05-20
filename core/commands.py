@@ -113,7 +113,7 @@ class handler:
             
             ## COMMANDS THAT REQUIRE ARGUMENTS ##
             def set_api(args):
-                if len(args) < 0:
+                if len(args) == 0:
                     message.usage_warn("/set-api <YOUR OPENROUTER API KEY>")
                     return True
                 elif len(args) > 1:
@@ -128,7 +128,7 @@ class handler:
             #change/set the ai model in data/data_file.json
             def set_model(args):
                 
-                if len(args) < 0:
+                if len(args) == 0:
                     message.usage_warn("/set-model <YOUR PREFERRED MODEL>")
                     return True
                 elif len(args) > 1:
@@ -142,8 +142,8 @@ class handler:
 
             #change/set site url in data/data_file.json
             def set_site_url(args):
-                if len(args) < 0:
-                    message.usage_warn("/set-site-name <YOUR SITE URL>")
+                if len(args) == 0:
+                    message.usage_warn("/set-site-url <YOUR SITE URL>")
                     return True
                 elif len(args) > 1:
                     message.warn("Please only input 1 argument!")
@@ -156,7 +156,7 @@ class handler:
             
             #change/set site name in data/data_file.json
             def set_site_name(args):
-                if len(parts) < 0:
+                if len(args) == 0:
                     message.usage_warn("/set-site-name <YOUR SITE NAME>")
                     return True
                 elif len(args) > 1:
@@ -169,9 +169,10 @@ class handler:
                 return True
 
             #change/set banner theme
-            def change_banner(aegs):
-                if len(args) < 0:
-                    message.usage_warn(f"/change-banner <YOUR PREFERRED THEME {available_theme}>")
+            def change_banner(args):
+                if len(args) == 0:
+                    theme_list = banner_theme.available_theme().keys()
+                    message.usage_warn(f"/change-banner <YOUR PREFERRED THEME {list(theme_list)}>")
                     return True
                 elif len(args) > 1:
                     message.warn("Please only input 1 argument!")
@@ -181,7 +182,7 @@ class handler:
                 theme_list = banner_theme.available_theme().keys()
                 
                 if theme not in theme_list:
-                    errors.print_error(f"Please input available theme {available_theme}", __file__)
+                    errors.print_error(f"Please input available theme {list(theme_list)}", __file__)
                     return True
                 
                 set_config("banner_theme", theme)
@@ -197,11 +198,11 @@ class handler:
                     "/cmd": cmd,
                     "/reset": reset,
                     "/help": help,
+                    "/check-api": check_api,
+                    "/check-api-nc": check_api_nc,
                 },
                 "args_required": {
                     "/set-api": set_api,
-                    "/check-api": check_api,
-                    "/check-api-nc": check_api_nc,
                     "/set-model": set_model,
                     "/set-site-url": set_site_url,
                     "/set-site-name": set_site_name,

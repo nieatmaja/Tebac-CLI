@@ -56,6 +56,9 @@ def call_api(user_input, conversation_history):
             )
         except requests.exceptions.Timeout:
             message.warn("Request timeout!")
+            return None
+        except requests.exceptions.RequestException as e:
+            errors.print_error(f"Api error ({e})")
         
         response.raise_for_status()
         return response.json()['choices'][0]['message']['content']

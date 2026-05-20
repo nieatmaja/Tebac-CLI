@@ -1,6 +1,7 @@
 # What is Tebac?
 Tebac is a program written in python used to chat with ai model in terminal.
-this is small project, won't be big.
+
+this is small project.
 
 ## Setup
 1. Get your API key from [OpenRouter](https://openrouter.com)

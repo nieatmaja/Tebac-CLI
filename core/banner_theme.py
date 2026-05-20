@@ -2,10 +2,12 @@ from rich.console import Console
 
 console = Console()
 
+ver_text = "V.02"
+
 class banner_theme:
     @staticmethod
     def banner_pride():
-        pride = f"""
+        logo = f"""
         [red]            ███        ▄████████ ▀█████████▄     ▄████████  ▄████████ [/]
         [dark_orange]        ▀█████████▄   ███    ███   ███    ███   ███    ███ ███    ███ [/]
         [yellow]           ▀███▀▀██   ███    █▀    ███    ███   ███    ███ ███    █▀  [/]
@@ -13,13 +15,13 @@ class banner_theme:
         [blue]            ███     ▀▀███▀▀▀     ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
         [purple]            ███       ███    █▄    ███    ██▄   ███    ███ ███    █▄  [/]
         [magenta]            ███       ███    ███   ███    ███   ███    ███ ███    ███ [/]
-        [dark_magenta]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold white]V.01[/]
+        [dark_magenta]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold white]{ver_text}[/]
         """
-        console.print(pride)
+        return logo
         
     @staticmethod
     def banner_retro():
-        retro = f"""
+        logo = f"""
         [bright_magenta]            ███        ▄████████ ▀█████████▄     ▄████████  ▄████████ [/]
         [magenta]        ▀█████████▄   ███    ███   ███    ███   ███    ███ ███    ███ [/]
         [bright_red]           ▀███▀▀██   ███    █▀    ███    ███   ███    ███ ███    █▀  [/]
@@ -27,13 +29,13 @@ class banner_theme:
         [yellow]            ███     ▀▀███▀▀▀     ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
         [cyan]            ███       ███    █▄    ███    ██▄   ███    ███ ███    █▄  [/]
         [bright_blue]            ███       ███    ███   ███    ███   ███    ███ ███    ███ [/]
-        [blue]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold bright_magenta]V.01[/]
+        [blue]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold bright_magenta]{ver_text}[/]
         """
-        console.print(retro)
+        return logo
         
     @staticmethod
     def banner_indonesia():
-        indonesia = f"""
+        logo = f"""
         [red]            ███        ▄████████ ▀█████████▄     ▄████████  ▄████████ [/]
         [red]        ▀█████████▄   ███    ███   ███    ███   ███    ███ ███    ███ [/]
         [red]           ▀███▀▀██   ███    █▀    ███    ███   ███    ███ ███    █▀  [/]
@@ -41,13 +43,13 @@ class banner_theme:
         [white]            ███     ▀▀███▀▀▀     ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
         [white]            ███       ███    █▄    ███    ██▄   ███    ███ ███    █▄  [/]
         [white]            ███       ███    ███   ███    ███   ███    ███ ███    ███ [/]
-        [white]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold white]V.01[/]
+        [white]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold white]{ver_text}[/]
         """
-        console.print(indonesia)
+        return logo
         
     @staticmethod
     def banner_poland():
-        poland = f"""
+        logo = f"""
         [white]            ███        ▄████████ ▀█████████▄     ▄████████  ▄████████ [/]
         [white]        ▀█████████▄   ███    ███   ███    ███   ███    ███ ███    ███ [/]
         [white]           ▀███▀▀██   ███    █▀    ███    ███   ███    ███ ███    █▀  [/]
@@ -55,13 +57,13 @@ class banner_theme:
         [red]            ███     ▀▀███▀▀▀     ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
         [red]            ███       ███    █▄    ███    ██▄   ███    ███ ███    █▄  [/]
         [red]            ███       ███    ███   ███    ███   ███    ███ ███    ███ [/]
-        [red]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [/][bold white]V.01[/]
+        [red]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [/][bold white]{ver_text}[/]
         """
-        console.print(poland)
+        return logo
         
     @staticmethod
     def banner_white():
-        white = f"""
+        logo = f"""
             ███        ▄████████ ▀█████████▄     ▄████████  ▄████████ 
         ▀█████████▄   ███    ███   ███    ███   ███    ███ ███    ███ 
            ▀███▀▀██   ███    █▀    ███    ███   ███    ███ ███    █▀  
@@ -69,9 +71,9 @@ class banner_theme:
             ███     ▀▀███▀▀▀     ▀▀███▀▀▀██▄  ▀███████████ ███        
             ███       ███    █▄    ███    ██▄   ███    ███ ███    █▄  
             ███       ███    ███   ███    ███   ███    ███ ███    ███ 
-           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold white]V.01[/]
+           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold white]{ver_text}[/]
         """
-        console.print(white)
+        return logo
         
     @staticmethod
     def banner_russia():
@@ -83,9 +85,9 @@ class banner_theme:
         [blue]            ███     ▀▀███▀▀▀     ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
         [red]            ███       ███    █▄    ███    ██▄   ███    ███ ███    █▄  [/]
         [red]            ███       ███    ███   ███    ███   ███    ███ ███    ███ [/]
-        [red]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold red]V.01[/]
+        [red]           ▄████▀     ██████████ ▄█████████▀    ███    █▀  ████████▀   [bold red]{ver_text}[/]
         """
-        console.print(logo)
+        return logo
         
     @staticmethod
     def banner_italy():
@@ -97,9 +99,9 @@ class banner_theme:
         [green]            ███     ▀▀███▀▀▀    [/][white]▀▀███▀▀▀██▄[/]  [red]▀███████████ ███        [/]
         [green]            ███       ███    █▄ [/] [white] ███    ██▄[/]   [red]███    ███ ███    █▄  [/]
         [green]            ███       ███    ███[/] [white] ███    ███[/]   [red]███    ███ ███    ███ [/]
-        [green]           ▄████▀     ██████████[/] [white]▄█████████▀ [/]  [red]███    █▀  ████████▀   [bold red]V.01[/]
+        [green]           ▄████▀     ██████████[/] [white]▄█████████▀ [/]  [red]███    █▀  ████████▀   [bold red]{ver_text}[/]
         """
-        console.print(logo)
+        return logo
         
     @staticmethod
     def banner_france():
@@ -111,6 +113,49 @@ class banner_theme:
         [blue]            ███     ▀▀███▀▀▀    [/][white]▀▀███▀▀▀██▄[/]  [red]▀███████████ ███        [/]
         [blue]            ███       ███    █▄ [/] [white] ███    ██▄[/]   [red]███    ███ ███    █▄  [/]
         [blue]            ███       ███    ███[/] [white] ███    ███[/]   [red]███    ███ ███    ███ [/]
-        [blue]           ▄████▀     ██████████[/] [white]▄█████████▀ [/]  [red]███    █▀  ████████▀   [bold red]V.01[/]
+        [blue]           ▄████▀     ██████████[/] [white]▄█████████▀ [/]  [red]███    █▀  ████████▀   [bold red]{ver_text}[/]
         """
-        console.print(logo)
+        return logo
+        
+    @staticmethod
+    def banner_usa():
+        logo = f"""
+        [blue]            ███        ▄████████ ▀█████████▄[/][red]     ▄████████  ▄████████ [/]
+        [blue]        ▀█████████▄   ███    ███  ███    ███[/][white]   ███    ███ ███    ███ [/]
+        [blue]           ▀███▀▀██   ███    █▀   ███    ███[/][red]   ███    ███ ███    █▀  [/]
+        [blue]            ███   ▀  ▄███▄▄▄     ▄███▄▄▄██▀[/][white]    ███    ███ ███        [/]
+        [red]            ███     ▀▀███▀▀▀    ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
+        [white]            ███       ███    █▄   ███    ██▄   ███    ███ ███    █▄  [/]
+        [red]            ███       ███    ███  ███    ███   ███    ███ ███    ███ [/]
+        [white]           ▄████▀     ██████████ ▄█████████▀   ███    █▀  ████████▀   [bold]{ver_text}[/]
+        """
+        return logo
+        
+    @staticmethod
+    def banner_purple_white_strip():
+        logo = f"""
+        [purple]            ███        ▄████████ ▀█████████▄     ▄████████  ▄████████ [/]
+        [white]        ▀█████████▄   ███    ███  ███    ███   ███    ███ ███    ███ [/]
+        [purple]           ▀███▀▀██   ███    █▀   ███    ███   ███    ███ ███    █▀  [/]
+        [white]            ███   ▀  ▄███▄▄▄     ▄███▄▄▄██▀    ███    ███ ███        [/]
+        [purple]            ███     ▀▀███▀▀▀    ▀▀███▀▀▀██▄  ▀███████████ ███        [/]
+        [white]            ███       ███    █▄   ███    ██▄   ███    ███ ███    █▄  [/]
+        [purple]            ███       ███    ███  ███    ███   ███    ███ ███    ███ [/]
+        [white]           ▄████▀     ██████████ ▄█████████▀   ███    █▀  ████████▀   [bold]{ver_text}[/]
+        """
+        return logo
+        
+    @staticmethod
+    def available_theme():
+        theme = {
+            "retro": __class__.banner_retro,
+            "pride": __class__.banner_pride,
+            "poland": __class__.banner_poland,
+            "indonesia": __class__.banner_indonesia,
+            "russia": __class__.banner_russia,
+            "italy": __class__.banner_italy,
+            "france": __class__.banner_france,
+            "usa": __class__.banner_usa,
+            "purple-strip": __class__.banner_purple_white_strip
+        }
+        return theme

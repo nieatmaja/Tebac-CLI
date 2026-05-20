@@ -2,6 +2,7 @@ import time
 import sys
 import subprocess
 import platform
+import shutil
 from .messages import errors
 from .storage import load_data
 from .banner_theme import banner_theme
@@ -10,6 +11,8 @@ from rich.live import Live
 from rich.markdown import Markdown
 from prompt_toolkit.styles import Style
 from prompt_toolkit import prompt
+from prompt_toolkit.history import FileHistory
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 
 console = Console()
 
@@ -53,7 +56,9 @@ class text:
                     ("class:white", ai_model),
                     ("class:white", "> "),
                 ],
-                style=style
+                style=style,
+                history=FileHistory(".history"),
+                auto_suggest=AutoSuggestFromHistory()
             )
         except Exception as e:
             errors.print_error(f"error on get_prompt ({e})", __file__)
@@ -64,27 +69,17 @@ class look:
         try:
             logo = load_data()
             
-            if logo['banner_theme'] == "pride":
-                banner_theme.banner_pride()
-            elif logo['banner_theme'] == "retro":
-                banner_theme.banner_retro()
-            elif logo['banner_theme'] == "white":
-                banner_theme.banner_white()
-            elif logo['banner_theme'] == "indonesia":
-                banner_theme.banner_indonesia()
-            elif logo['banner_theme'] == "poland":
-                banner_theme.banner_poland()
-            elif logo['banner_theme'] == "russia":
-                banner_theme.banner_russia()
-            elif logo['banner_theme'] == "italy":
-                banner_theme.banner_italy()
-            elif logo['banner_theme'] == "france":
-                banner_theme.banner_france()
+            themes = banner_theme.available_theme()
+            theme_choice = logo['banner_theme']
+            
+            if theme_choice in themes:
+                chosen_theme = themes[theme_choice]
+                console.print(chosen_theme())
             else:
                 data = load_data()
                 errors.print_error(f"Invalid theme name! [Theme: \"[bold]{data['banner_theme']}[/]\"?]\n", __file__)
                 
-            program_copyright = "Tebac Copyright (C) 2026 nieatmaja\n    This program comes with ABSOLUTELY NO WARRANTY.This is\n    free software, and you are welcome to redistribute it\n    under certain conditions.\n[bold]Please type /help to see available commands![/bold]\n//You can change 'tebac' banner by typing /change-banner\n"
+            program_copyright = "Tebac Copyright (C) 2026 nieatmaja\n\tThis program comes with ABSOLUTELY NO WARRANTY.This is\n\tfree software, and you are welcome to redistribute it\n\tunder certain conditions.\n[bold]Please type /help to see available commands![/bold]\nYou can change 'tebac' banner by typing /change-banner <YOUR_PREFERRED_THEME>\n"
                 
             console.print(program_copyright)
                 

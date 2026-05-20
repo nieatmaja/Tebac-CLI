@@ -31,13 +31,7 @@ def chat():
     basic_commands.cls()
     look.render_banner()
     
-    api_key = config['api_key']
-    
-    if api_key == "<YOUR_API>" or not api_key.startswith("sk-or-v1"):
-        console.print(f"[bold]No valid openrouter api key specified, you may need to set your api key![/bold], run /set-api API_KEY")
-
-    if api_key == "<YOUR_PREFERRED_MODEL>":
-        console.print(f"[bold]No ai model specified, you may need to set ai model![/bold], run /set-model MODEL")
+    message.ensure_api_model_valid()
 
     while True:
         try:
@@ -73,7 +67,6 @@ def chat():
             sys.exit(0)
         except Exception as e:
             errors.print_error(e, __file__)
-        
             
 if __name__ == '__main__':
     chat()

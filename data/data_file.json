@@ -1,7 +1,7 @@
 {
-    "api_key": "<YOUR-API>",
+    "api_key": "<YOUR_API>",
     "site_url": "https://github.com/nieatmaja/Tebac-CLI",
     "site_name": "tebac",
-    "model": "poolside/laguna-m.1:free",
+    "model": "<YOUR_PREFERRED_MODEL>",
     "banner_theme": "retro"
 }
